@@ -11,17 +11,10 @@ setup:
         [
           "sh",
           "-c",
-          "until [ -f $WORKSPACE_DIR/package.json ]; do sleep 1; done; cd $WORKSPACE_DIR && npm install" 
-        ]
-      description: Waiting for project files, installing dependencies
-    - command:
-        [
-          "sh",
-          "-c",
-          "until [ -f $WORKSPACE_DIR/package.json ]; do sleep 1; done; cd $WORKSPACE_DIR && npm run dev",
+          "until [ -f $WORKSPACE_DIR/compose.yaml ]; do sleep 1; done; cd $WORKSPACE_DIR && docker compose up --build",
         ]
       background: true
-      description: Start the dev server
+      description: Start the dev server via Docker Compose
 
 permissions:
   network:
@@ -32,9 +25,12 @@ agentInstructions:
   content: |
     ## Dev environment
 
-    The dev environment is already up and running and accessible on port 3000 inside the sandbox (using http://localhost:3000). 
+    The dev environment is started via Docker Compose (`compose.yaml` in the project root) rather than
+    `npm run dev` directly. It is already up and running and accessible on port 3000 inside the sandbox
+    (using http://localhost:3000).
 
-    Use this for any validation or confirmation you need to do. You can also use the dev server to test your changes in the project.
+    Use `docker compose ps` / `docker compose logs -f` to check on the stack, and `docker compose restart`
+    if you need to restart it. Use the running server for any validation or confirmation you need to do.
 
     The dev server's port is published to the host machine, allowing the user to also access the dev server
     from their local machine. The dev server is accessible to the user at http://localhost:3000.
