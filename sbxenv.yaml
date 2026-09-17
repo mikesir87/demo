@@ -1,0 +1,14 @@
+schemaVersion: "1"
+name: learn
+agent: claude
+
+kits:
+  # Configure GitHub access and code signing
+  - docker.io/sbx/git-ssh-sign-kit:20260910-34edb9066bc5d091ce74a30d8f65e2ffc89d2f21
+  - docker.io/sbx/github-ssh-kit:20260910-34edb9066bc5d091ce74a30d8f65e2ffc89d2f21
+
+  # Clone the repo
+  - source: git+https://github.com/cdupuis/sbx-kits.git#dir=github-clone
+    args:
+      repo: mikesir87/demo
+
