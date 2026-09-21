@@ -13,6 +13,13 @@ setup:
     - command:
         [ "hermes", "config", "set", "skills.create_dir", "$WORKSPACE_DIR/.hermes/skills" ]
       description: Configure hermes to create new skills in the project workspace
+    - command:
+        [
+          "sh",
+          "-c",
+          "for d in $WORKSPACE_DIR/.hermes/skills/*/; do [ -d \"$d\" ] && ln -sf \"$d\" ~/.hermes/skills/; done",
+        ]
+      description: Symlink project skills into home skills directory so skill_view can find them
   startup:
     - command:
         [
