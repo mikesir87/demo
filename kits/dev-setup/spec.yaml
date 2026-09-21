@@ -6,6 +6,13 @@ displayName: Dev environment setup
 description: Configures and provides an automatic dev environment for the project.
 
 setup:
+  install:
+    - command:
+        [ "hermes", "skills", "trust", "$WORKSPACE_DIR" ]
+      description: Configure hermes to trust the workspace directory
+    - command:
+        [ "hermes", "config", "set", "skills.create_dir", "$WORKSPACE_DIR/.hermes/skills" ]
+      description: Configure hermes to create new skills in the project workspace
   startup:
     - command:
         [
