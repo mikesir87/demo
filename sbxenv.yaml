@@ -14,3 +14,5 @@ kits:
     args:
       repo: mikesir87/demo
       dir: /home/agent/workspace
+
+  - source: ./kits/dev-setup

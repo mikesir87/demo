@@ -7,28 +7,24 @@ description: Configures and provides an automatic dev environment for the projec
 
 setup:
   install:
-    - command:
-        [ "hermes", "skills", "trust", "$WORKSPACE_DIR" ]
+    - command: "hermes skills trust /home/agent/workspace"
       description: Configure hermes to trust the workspace directory
-    - command:
-        [ "hermes", "config", "set", "skills.create_dir", "$WORKSPACE_DIR/.hermes/skills" ]
+      user: "1000"
+    - command: "hermes config set skills.create_dir /home/agent/workspace/.hermes/skills"
       description: Configure hermes to create new skills in the project workspace
-    - command:
-        [
-          "sh",
-          "-c",
-          "for d in $WORKSPACE_DIR/.hermes/skills/*/; do [ -d \"$d\" ] && ln -sf \"$d\" ~/.hermes/skills/; done",
-        ]
+    - command: "sh -c \"for d in /home/agent/workspace/.hermes/skills/*/; do [ -d \"$d\" ] && ln -sf \"$d\" ~/.hermes/skills/; done\""
       description: Symlink project skills into home skills directory so skill_view can find them
+      user: "1000"
   startup:
     - command:
         [
           "sh",
           "-c",
-          "until [ -f $WORKSPACE_DIR/compose.yaml ]; do sleep 1; done; cd $WORKSPACE_DIR && docker compose up --build",
+          "until [ -f /home/agent/workspace/compose.yaml ]; do sleep 1; done; cd $WORKSPACE_DIR && docker compose up --build",
         ]
       background: true
       description: Start the dev server via Docker Compose
+      user: "1000"
 
 permissions:
   network:
