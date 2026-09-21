@@ -3,9 +3,9 @@ name: demo
 agent: hermes-agent 
 
 kits:
-  # Configure GitHub access and code signing
   - sbx/hermes-agent-kit:20260921-082ef2490d968497ca797aeac148858e8802b1cb
 
+  # Configure GitHub access and code signing
   - sbx/git-ssh-sign-kit:20260910-34edb9066bc5d091ce74a30d8f65e2ffc89d2f21
   - sbx/github-ssh-kit:20260910-34edb9066bc5d091ce74a30d8f65e2ffc89d2f21
 
